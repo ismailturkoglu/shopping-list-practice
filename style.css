@@ -1,0 +1,22 @@
+.shopping-list {
+  list-style: none;
+  padding: 0;
+}
+
+.shopping-list li {
+  background-color: antiquewhite;
+  margin: 0.5rem 0;
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.shopping-list li .delete-icon {
+  font-size: 1.5rem;
+  color: red;
+  transform: scale(0);
+  transition: transform 200ms;
+}
+
+.shopping-list li:hover .delete-icon {
+  transform: scale(1);
+}
