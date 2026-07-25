@@ -26,10 +26,15 @@
   <body>
     <div class="container">
       <h1 class="text-center">Shopping List</h1>
-      <form class="border rounded p-3 my-3">
+      <form class="border rounded p-3 my-3" id="add-item-form">
         <div class="input-group">
-          <input type="text" class="form-control" placeholder="Add an item." />
-          <button class="btn btn-primary">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Add an item."
+            id="item-name"
+          />
+          <button class="btn btn-primary" id="add-item-button">
             <i class="bi bi-plus"></i>
           </button>
         </div>

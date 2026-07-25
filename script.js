@@ -8,6 +8,52 @@ let items = [
   { id: 5, name: "Peynir", completed: false },
 ];
 
+const form = document.getElementById("add-item-form");
+// const form = document.querySelector("#add-item-form");
+
+// 1. Yöntem: submit event
+form.addEventListener("submit", handleFormSubmit);
+
+// 2. Yöntem: click event
+// const addItemButton = document.getElementById("add-item-button");
+// addItemButton.addEventListener("click", handleFormSubmit);
+
+function handleFormSubmit(e) {
+  e.preventDefault();
+  console.log("yes");
+
+  const input = document.getElementById("item-name");
+
+  if (input.value.trim().length === 0) {
+    console.log("Enter a value.");
+    return;
+  }
+
+  addListItem(input);
+}
+
+function addListItem(input) {
+  id = produceId();
+  console.log(id);
+
+  const newItem = createListItem({
+    id: id,
+    name: input.value,
+    completed: false,
+  });
+
+  // Elemanı listenin sonuna ekler.
+  shoppingList.appendChild(newItem);
+  // Elemanı listenin başına ekler.
+  // shoppingList.prepend(newItem);
+
+  input.value = "";
+}
+
+function produceId() {
+  return Date.now().toString();
+}
+
 // loadItems1();
 loadItems2();
 
@@ -49,6 +95,7 @@ function createListItem(item) {
   const ch = document.createElement("input");
   ch.type = "checkbox";
   ch.className = "form-check-input";
+  ch.checked = item.completed;
 
   // div
   const div = document.createElement("div");
