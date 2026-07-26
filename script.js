@@ -1,13 +1,5 @@
 const shoppingList = document.querySelector(".shopping-list");
 
-let items = [
-  { id: 1, name: "Yumurta", completed: true },
-  { id: 2, name: "Tavuk", completed: false },
-  { id: 3, name: "Süt", completed: false },
-  { id: 4, name: "Zeytin", completed: false },
-  { id: 5, name: "Peynir", completed: false },
-];
-
 const form = document.getElementById("add-item-form");
 // const form = document.querySelector("#add-item-form");
 
@@ -75,6 +67,7 @@ function loadItems1() {
 // 2. Yöntem: li elementi oluşturarak itemları ekleme
 function loadItems2() {
   clearItems();
+  let items = getItems();
 
   for (item of items) {
     const li = createListItem(item);
@@ -157,4 +150,14 @@ function removeListItem(e) {
   const li = e.target.parentElement;
   // li.remove();
   shoppingList.removeChild(li);
+}
+
+function getItems() {
+  return [
+    { id: 1, name: "Yumurta", completed: true },
+    { id: 2, name: "Tavuk", completed: false },
+    { id: 3, name: "Süt", completed: false },
+    { id: 4, name: "Zeytin", completed: false },
+    { id: 5, name: "Peynir", completed: false },
+  ];
 }
