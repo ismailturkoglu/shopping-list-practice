@@ -3,12 +3,19 @@ const shoppingList = document.querySelector(".shopping-list");
 const form = document.getElementById("add-item-form");
 // const form = document.querySelector("#add-item-form");
 
-// 1. Yöntem: submit event
-form.addEventListener("submit", handleFormSubmit);
+document.addEventListener("DOMContentLoaded", initApp);
 
-// 2. Yöntem: click event
-// const addItemButton = document.getElementById("add-item-button");
-// addItemButton.addEventListener("click", handleFormSubmit);
+function initApp() {
+  // 1. Yöntem: submit event
+  form.addEventListener("submit", handleFormSubmit);
+
+  // 2. Yöntem: click event
+  // const addItemButton = document.getElementById("add-item-button");
+  // addItemButton.addEventListener("click", handleFormSubmit);
+
+  // loadItems1();
+  loadItems2();
+}
 
 function handleFormSubmit(e) {
   e.preventDefault();
@@ -45,9 +52,6 @@ function addListItem(input) {
 function produceId() {
   return Date.now().toString();
 }
-
-// loadItems1();
-loadItems2();
 
 // 1. Yöntem: innerHTML ile itemları ekleme
 function loadItems1() {
