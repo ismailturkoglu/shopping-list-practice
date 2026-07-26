@@ -23,12 +23,15 @@ function handleFormSubmit(e) {
 
   const input = document.getElementById("item-name");
 
+  checkInputEmpty(input);
+  addListItem(input);
+}
+
+function checkInputEmpty(input) {
   if (input.value.trim().length === 0) {
-    console.log("Enter a value.");
+    alert("Enter a value.");
     return;
   }
-
-  addListItem(input);
 }
 
 function addListItem(input) {
