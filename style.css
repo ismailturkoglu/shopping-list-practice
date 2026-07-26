@@ -21,3 +21,13 @@
 .shopping-list li:hover .delete-icon {
   transform: scale(1);
 }
+
+.shopping-list li[item-completed] .item-name {
+  color: #999;
+  text-decoration: line-through;
+}
+
+.shopping-list li.completed .item-name {
+  color: #999;
+  text-decoration: line-through;
+}

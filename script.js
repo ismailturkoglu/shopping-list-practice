@@ -1,7 +1,7 @@
 const shoppingList = document.querySelector(".shopping-list");
 
 let items = [
-  { id: 1, name: "Yumurta", completed: false },
+  { id: 1, name: "Yumurta", completed: true },
   { id: 2, name: "Tavuk", completed: false },
   { id: 3, name: "Süt", completed: false },
   { id: 4, name: "Zeytin", completed: false },
@@ -91,15 +91,25 @@ function createListItem(item) {
   const li = document.createElement("li");
   li.className = "d-flex align-items-center";
 
+  // Tamamlanan item'lara css uygulama özelliği
+  // 1. Yöntem: toggle attribute ile
+  li.toggleAttribute("item-completed", item.completed);
+
+  // 2. Yöntem: add class ile
+  // addCompletedClass(item, li);
+
   // input (checkbox)
   const ch = document.createElement("input");
   ch.type = "checkbox";
   ch.className = "form-check-input";
   ch.checked = item.completed;
 
+  // checkbox işaretlenince css uygulama
+  ch.addEventListener("change", toggleItemCompleted);
+
   // div
   const div = document.createElement("div");
-  div.className = "ps-3";
+  div.className = "ps-3 item-name";
   div.innerText = `${item.name}`;
 
   // i (span da olabilir)
@@ -111,11 +121,33 @@ function createListItem(item) {
   li.appendChild(i);
 
   return li;
-}
 
-// Bu oluşturulacak:
-/* <li class="d-flex align-items-center">
+  // Bu oluşturulacak:
+  /* <li class="d-flex align-items-center">
   <input type="checkbox" class="form-check-input" />
   <div class="ps-3">item</div>
   <i class="bi bi-x ms-auto delete-icon"></i>
 </li> */
+}
+
+// Verilen item ın checkbox'ı işaretliyse "completed" sınıfı ekler.
+function addCompletedClass(item, li) {
+  if (item.completed) {
+    li.classList.add("completed");
+  }
+}
+
+// Tamamlanan list item'lara css uygular.
+function toggleItemCompleted(e) {
+  const li = e.target.parentElement;
+
+  // 1. Yöntem: toggle attribute ile
+  // LoadItems() ile item.completed'a göre yükleniyor. item.completed=true olsaydı zaten checkbox işaretli ve item-completed attribute'u olacaktı.
+  // li.toggleAttribute("item-completed");
+
+  // checkbox'ı referans alarak da toggle edilebilir.
+  li.toggleAttribute("item-completed", e.target.checked);
+
+  // 2. Yöntem: toggle class ile
+  // li.classList.toggle("completed");
+}
