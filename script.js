@@ -115,6 +115,7 @@ function createListItem(item) {
   // i (span da olabilir)
   const i = document.createElement("i");
   i.className = "bi bi-x ms-auto delete-icon";
+  i.addEventListener("click", removeListItem);
 
   li.appendChild(ch);
   li.appendChild(div);
@@ -150,4 +151,10 @@ function toggleItemCompleted(e) {
 
   // 2. Yöntem: toggle class ile
   // li.classList.toggle("completed");
+}
+
+function removeListItem(e) {
+  const li = e.target.parentElement;
+  // li.remove();
+  shoppingList.removeChild(li);
 }
