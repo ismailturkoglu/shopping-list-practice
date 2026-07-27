@@ -26,6 +26,7 @@
   <body>
     <div class="container">
       <h1 class="text-center">Shopping List</h1>
+
       <form class="border rounded p-3 my-3" id="add-item-form">
         <div class="input-group">
           <input
@@ -39,6 +40,13 @@
           </button>
         </div>
       </form>
+
+      <div class="filter-buttons p-3 mb-3">
+        <button class="btn btn-primary">All</button>
+        <button class="btn btn-secondary">Uncompleted</button>
+        <button class="btn btn-secondary">Completed</button>
+      </div>
+
       <ul class="shopping-list"></ul>
     </div>
 

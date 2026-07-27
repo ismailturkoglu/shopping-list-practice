@@ -3,18 +3,17 @@ const shoppingList = document.querySelector(".shopping-list");
 const form = document.getElementById("add-item-form");
 // const form = document.querySelector("#add-item-form");
 
+// const addItemButton = document.getElementById("add-item-button");
+
+const filterButtons = document.querySelectorAll(".filter-buttons button");
+
 document.addEventListener("DOMContentLoaded", initApp);
 
 function initApp() {
-  // 1. Yöntem: submit event
-  form.addEventListener("submit", handleFormSubmit);
-
-  // 2. Yöntem: click event
-  // const addItemButton = document.getElementById("add-item-button");
-  // addItemButton.addEventListener("click", handleFormSubmit);
-
   // loadItems1();
   loadItems2();
+  addEventListenerToFormSubmit();
+  addEventListenerToFilterButtons();
 }
 
 function handleFormSubmit(e) {
@@ -186,4 +185,26 @@ function cancelEnter(e) {
     e.preventDefault();
     closeEditMode(e);
   }
+}
+function addEventListenerToFormSubmit() {
+  // 1. Yöntem: submit event
+  form.addEventListener("submit", handleFormSubmit);
+
+  // 2. Yöntem: click event
+  // addItemButton.addEventListener("click", handleFormSubmit);
+}
+function addEventListenerToFilterButtons() {
+  for (button of filterButtons) {
+    button.addEventListener("click", handleFilterSelection);
+  }
+}
+function handleFilterSelection(e) {
+  const filterButton = e.target;
+  for (button of filterButtons) {
+    button.classList.add("btn-secondary");
+    button.classList.remove("btn-primary");
+  }
+
+  filterButton.classList.add("btn-primary");
+  filterButton.classList.remove("btn-secondary");
 }
