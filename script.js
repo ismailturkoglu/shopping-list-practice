@@ -22,15 +22,19 @@ function handleFormSubmit(e) {
 
   const input = document.getElementById("item-name");
 
-  checkInputEmpty(input);
+  if (checkInputEmpty(input)) {
+    return;
+  }
+
   addListItem(input);
 }
 
 function checkInputEmpty(input) {
   if (input.value.trim().length === 0) {
     alert("Enter a value.");
-    return;
+    return true;
   }
+  return false;
 }
 
 function addListItem(input) {
