@@ -7,8 +7,13 @@
 .shopping-list li {
   background-color: antiquewhite;
   margin: 0.5rem 0;
-  padding: 1.5rem;
+  padding: 1rem;
   border-radius: 0.5rem;
+}
+
+.shopping-list li .item-name {
+  margin-left: 0.5rem;
+  padding: 0.5rem;
 }
 
 .shopping-list li .delete-icon {

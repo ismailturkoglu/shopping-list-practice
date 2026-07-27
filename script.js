@@ -111,6 +111,9 @@ function createListItem(item) {
   const div = document.createElement("div");
   div.className = "ps-3 item-name";
   div.innerText = `${item.name}`;
+  div.addEventListener("click", openEditMode);
+  div.addEventListener("blur", closeEditMode);
+  div.addEventListener("keydown", cancelEnter);
 
   // i (span da olabilir)
   const i = document.createElement("i");
@@ -167,4 +170,20 @@ function getItems() {
     { id: 4, name: "Zeytin", completed: false },
     { id: 5, name: "Peynir", completed: false },
   ];
+}
+
+function openEditMode(e) {
+  const li = e.target.parentElement;
+  if (li.hasAttribute("item-completed") == false) {
+    e.target.contentEditable = true;
+  }
+}
+function closeEditMode(e) {
+  e.target.contentEditable = false;
+}
+function cancelEnter(e) {
+  if (e.key == "Enter") {
+    e.preventDefault();
+    closeEditMode(e);
+  }
 }
