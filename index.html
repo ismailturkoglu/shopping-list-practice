@@ -42,9 +42,13 @@
       </form>
 
       <div class="filter-buttons border rounded p-3 mb-3">
-        <button class="btn btn-primary">All</button>
-        <button class="btn btn-secondary">Uncompleted</button>
-        <button class="btn btn-secondary">Completed</button>
+        <button item-completed="all" class="btn btn-primary">All</button>
+        <button item-completed="uncompleted" class="btn btn-secondary">
+          Uncompleted
+        </button>
+        <button item-completed="completed" class="btn btn-secondary">
+          Completed
+        </button>
       </div>
 
       <ul class="shopping-list"></ul>

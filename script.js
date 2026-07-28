@@ -1,11 +1,8 @@
 const shoppingList = document.querySelector(".shopping-list");
-
 const form = document.getElementById("add-item-form");
 // const form = document.querySelector("#add-item-form");
-
 // const addItemButton = document.getElementById("add-item-button");
-
-const filterButtons = document.querySelectorAll(".filter-buttons button");
+const filter_buttons = document.querySelectorAll(".filter-buttons button");
 
 document.addEventListener("DOMContentLoaded", initApp);
 
@@ -15,7 +12,6 @@ function initApp() {
   addEventListenerToFormSubmit();
   addEventListenerToFilterButtons();
 }
-
 function handleFormSubmit(e) {
   e.preventDefault();
   console.log("yes");
@@ -28,7 +24,6 @@ function handleFormSubmit(e) {
 
   addListItem(input);
 }
-
 function checkInputEmpty(input) {
   if (input.value.trim().length === 0) {
     alert("Enter a value.");
@@ -36,7 +31,6 @@ function checkInputEmpty(input) {
   }
   return false;
 }
-
 function addListItem(input) {
   id = produceId();
   console.log(id);
@@ -54,11 +48,9 @@ function addListItem(input) {
 
   input.value = "";
 }
-
 function produceId() {
   return Date.now().toString();
 }
-
 // 1. Yöntem: innerHTML ile itemları ekleme
 function loadItems1() {
   clearItems();
@@ -73,7 +65,6 @@ function loadItems1() {
   `;
   }
 }
-
 // 2. Yöntem: li elementi oluşturarak itemları ekleme
 function loadItems2() {
   clearItems();
@@ -84,11 +75,9 @@ function loadItems2() {
     shoppingList.appendChild(li);
   }
 }
-
 function clearItems() {
   shoppingList.innerHTML = "";
 }
-
 function createListItem(item) {
   // li
   const li = document.createElement("li");
@@ -136,14 +125,12 @@ function createListItem(item) {
   <i class="bi bi-x ms-auto delete-icon"></i>
 </li> */
 }
-
 // Verilen item ın checkbox'ı işaretliyse "completed" sınıfı ekler.
 function addCompletedClass(item, li) {
   if (item.completed) {
     li.classList.add("completed");
   }
 }
-
 // Tamamlanan list item'lara css uygular.
 function toggleItemCompleted(e) {
   const li = e.target.parentElement;
@@ -158,13 +145,11 @@ function toggleItemCompleted(e) {
   // 2. Yöntem: toggle class ile
   // li.classList.toggle("completed");
 }
-
 function removeListItem(e) {
   const li = e.target.parentElement;
   // li.remove();
   shoppingList.removeChild(li);
 }
-
 function getItems() {
   return [
     { id: 1, name: "Yumurta", completed: true },
@@ -174,7 +159,6 @@ function getItems() {
     { id: 5, name: "Peynir", completed: false },
   ];
 }
-
 function openEditMode(e) {
   const li = e.target.parentElement;
   if (li.hasAttribute("item-completed") == false) {
@@ -198,17 +182,17 @@ function addEventListenerToFormSubmit() {
   // addItemButton.addEventListener("click", handleFormSubmit);
 }
 function addEventListenerToFilterButtons() {
-  for (button of filterButtons) {
+  for (button of filter_buttons) {
     button.addEventListener("click", handleFilterSelection);
   }
 }
 function handleFilterSelection(e) {
-  const filterButton = e.target;
-  for (button of filterButtons) {
+  const active_btn = e.target;
+  for (button of filter_buttons) {
     button.classList.add("btn-secondary");
     button.classList.remove("btn-primary");
   }
 
-  filterButton.classList.add("btn-primary");
-  filterButton.classList.remove("btn-secondary");
+  active_btn.classList.add("btn-primary");
+  active_btn.classList.remove("btn-secondary");
 }
