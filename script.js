@@ -2,7 +2,7 @@ const shoppingList = document.querySelector(".shopping-list");
 const form = document.getElementById("add-item-form");
 // const form = document.querySelector("#add-item-form");
 // const addItemButton = document.getElementById("add-item-button");
-const filter_buttons = document.querySelectorAll(".filter-buttons button");
+const filterButtons = document.querySelectorAll(".filter-buttons button");
 
 document.addEventListener("DOMContentLoaded", initApp);
 
@@ -23,6 +23,8 @@ function handleFormSubmit(e) {
   }
 
   addListItem(input);
+
+  updateFilterItems();
 }
 function checkInputEmpty(input) {
   if (input.value.trim().length === 0) {
@@ -32,7 +34,7 @@ function checkInputEmpty(input) {
   return false;
 }
 function addListItem(input) {
-  id = produceId();
+  const id = produceId();
   console.log(id);
 
   const newItem = createListItem({
@@ -55,7 +57,7 @@ function produceId() {
 function loadItems1() {
   clearItems();
 
-  for (item of items) {
+  for (const item of items) {
     shoppingList.innerHTML += `
     <li class="d-flex align-items-center">
         <input type="checkbox" class="form-check-input" />
@@ -144,11 +146,15 @@ function toggleItemCompleted(e) {
 
   // 2. Yöntem: toggle class ile
   // li.classList.toggle("completed");
+
+  updateFilterItems();
 }
 function removeListItem(e) {
   const li = e.target.parentElement;
   // li.remove();
   shoppingList.removeChild(li);
+
+  updateFilterItems();
 }
 function getItems() {
   return [
@@ -161,7 +167,7 @@ function getItems() {
 }
 function openEditMode(e) {
   const li = e.target.parentElement;
-  if (li.hasAttribute("item-completed") == false) {
+  if (!li.hasAttribute("item-completed")) {
     e.target.contentEditable = true;
   }
 }
@@ -169,7 +175,7 @@ function closeEditMode(e) {
   e.target.contentEditable = false;
 }
 function cancelEnter(e) {
-  if (e.key == "Enter") {
+  if (e.key === "Enter") {
     e.preventDefault();
     closeEditMode(e);
   }
@@ -182,17 +188,47 @@ function addEventListenerToFormSubmit() {
   // addItemButton.addEventListener("click", handleFormSubmit);
 }
 function addEventListenerToFilterButtons() {
-  for (button of filter_buttons) {
+  for (const button of filterButtons) {
     button.addEventListener("click", handleFilterSelection);
   }
 }
 function handleFilterSelection(e) {
   const active_btn = e.target;
-  for (button of filter_buttons) {
+  for (button of filterButtons) {
     button.classList.add("btn-secondary");
     button.classList.remove("btn-primary");
   }
 
   active_btn.classList.add("btn-primary");
   active_btn.classList.remove("btn-secondary");
+
+  const filterType = active_btn.getAttribute("item-filter");
+
+  filterItems(filterType);
+}
+function filterItems(filter) {
+  const ul = document.querySelector(".shopping-list");
+  const listItems = ul.querySelectorAll("li");
+  for (const li of listItems) {
+    li.classList.remove("d-flex");
+    li.classList.remove("d-none");
+
+    const isCompleted = li.hasAttribute("item-completed");
+
+    if (filter == "completed") {
+      // completed items
+      li.classList.toggle(isCompleted ? "d-flex" : "d-none");
+    } else if (filter == "incompleted") {
+      // incompleted items
+      li.classList.toggle(isCompleted ? "d-none" : "d-flex");
+    } else {
+      // all items
+      li.classList.toggle("d-flex");
+    }
+  }
+}
+function updateFilterItems() {
+  const activeBtn = document.querySelector(".btn-primary[item-filter]");
+  const filter = activeBtn.getAttribute("item-filter");
+  filterItems(filter);
 }
