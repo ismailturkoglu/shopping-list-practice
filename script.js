@@ -104,6 +104,9 @@ function createListItem(item) {
   // 1st method: Toggle the attribute based on the item's status.
   li.toggleAttribute("item-completed", item.completed);
 
+  // Add the item's unique ID as a custom attribute to the li element.
+  li.setAttribute("item-id", item.id);
+
   // 2nd method: Add a CSS class.
   // addCompletedClass(item, li);
 
