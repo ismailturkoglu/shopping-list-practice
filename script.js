@@ -3,6 +3,7 @@ const form = document.getElementById("add-item-form");
 // const form = document.querySelector("#add-item-form");
 // const addItemButton = document.getElementById("add-item-button");
 const filterButtons = document.querySelectorAll(".filter-buttons button");
+const clearBtn = document.querySelector(".clear");
 
 // Initialize the application after the DOM is fully loaded.
 document.addEventListener("DOMContentLoaded", initApp);
@@ -13,6 +14,7 @@ function initApp() {
   loadItems2();
   addEventListenerToFormSubmit();
   addEventListenerToFilterButtons();
+  addEventListenerToClearButton();
 }
 // Handles the form submission and adds a new item to the list.
 function handleFormSubmit(e) {
@@ -242,6 +244,10 @@ function addEventListenerToFilterButtons() {
     button.addEventListener("click", handleFilterSelection);
   }
 }
+// Adds click event listner to clear button.
+function addEventListenerToClearButton() {
+  clearBtn.addEventListener("click", clear);
+}
 // Handles filter button selection and applies the selected filter.
 function handleFilterSelection(e) {
   const activeBtn = e.target;
@@ -317,4 +323,12 @@ function saveToLocalStore() {
 
   // Saves the list data as a JSON string in local storage.
   localStorage.setItem("shoppingListItems", JSON.stringify(list));
+}
+
+// Clears all shopping list items from the page and removes their saved data from local storage.
+function clear() {
+  // Clear all items from the shopping list in the DOM.
+  clearItems();
+  // Removes the "shoppingListItems" key and its saved data from local storage.
+  localStorage.removeItem("shoppingListItems");
 }
