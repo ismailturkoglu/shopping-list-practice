@@ -14,7 +14,6 @@ function initApp() {
   addEventListenerToFormSubmit();
   addEventListenerToFilterButtons();
 }
-
 // Handles the form submission and adds a new item to the list.
 function handleFormSubmit(e) {
   e.preventDefault();
@@ -33,6 +32,9 @@ function handleFormSubmit(e) {
 
   // Apply the currently selected filter.
   updateFilterItems();
+
+  // Saves shopping list data to local storage.
+  saveToLocalStore();
 }
 // Checks whether the input is empty.
 function checkInputEmpty(input) {
@@ -160,7 +162,7 @@ function addCompletedClass(item, li) {
     li.classList.add("completed");
   }
 }
-// Updates the completed state of a shopping list item.
+// Updates the completed state of a shopping list item when the checkbox changes.
 function toggleItemCompleted(e) {
   const li = e.target.parentElement;
 
@@ -176,6 +178,9 @@ function toggleItemCompleted(e) {
 
   // Reapply the currently selected filter.
   updateFilterItems();
+
+  // Saves shopping list data to local storage.
+  saveToLocalStore();
 }
 // Removes the selected item from the shopping list.
 function removeListItem(e) {
@@ -185,16 +190,22 @@ function removeListItem(e) {
 
   // Reapply the currently selected filter.
   updateFilterItems();
+
+  // Saves shopping list data to local storage.
+  saveToLocalStore();
 }
 // Returns the initial shopping list items.
 function getItems() {
-  return [
-    { id: 1, name: "Yumurta", completed: true },
-    { id: 2, name: "Tavuk", completed: false },
-    { id: 3, name: "Süt", completed: false },
-    { id: 4, name: "Zeytin", completed: false },
-    { id: 5, name: "Peynir", completed: false },
-  ];
+  // return [
+  //   { id: 1, name: "Yumurta", completed: true },
+  //   { id: 2, name: "Tavuk", completed: false },
+  //   { id: 3, name: "Süt", completed: false },
+  //   { id: 4, name: "Zeytin", completed: false },
+  //   { id: 5, name: "Peynir", completed: false },
+  // ];
+
+  // Retrieves shopping list items from local storage and returns an empty array if no items are found.
+  return JSON.parse(localStorage.getItem("shoppingListItems")) || [];
 }
 // Enables edit mode for an incompleted item
 function openEditMode(e) {
@@ -206,6 +217,9 @@ function openEditMode(e) {
 // Disables edit mode when the element loses focus.
 function closeEditMode(e) {
   e.target.contentEditable = false;
+
+  // Saves shopping list data to local storage.
+  saveToLocalStore();
 }
 // Prevents the "Enter" key from creating a new line in edit mode.
 function cancelEnter(e) {
@@ -277,4 +291,30 @@ function updateFilterItems() {
   const activeBtn = document.querySelector(".btn-primary[item-filter]");
   const filter = activeBtn.getAttribute("item-filter");
   filterItems(filter);
+}
+// Collects shopping list items from the DOM, converts them into an array of objects and saves the data in local storage as a JSON string.
+function saveToLocalStore() {
+  const listItems = document
+    .querySelector(".shopping-list")
+    .querySelectorAll("li");
+
+  let list = [];
+
+  // Convert each list item into an object and add it to the list array.
+  for (let li of listItems) {
+    // id
+    // Get the item's id from the custom attribute
+    const id = li.getAttribute("item-id");
+    // name
+    // Gets the item's name from the div element.
+    const name = li.querySelector("div").innerText;
+    // isCompleted
+    // Checks whether the item is completed.
+    const isCompleted = li.hasAttribute("item-completed");
+
+    list.push({ id: id, name: name, completed: isCompleted });
+  }
+
+  // Saves the list data as a JSON string in local storage.
+  localStorage.setItem("shoppingListItems", JSON.stringify(list));
 }
