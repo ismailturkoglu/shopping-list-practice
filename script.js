@@ -37,6 +37,9 @@ function handleFormSubmit(e) {
 
   // Saves shopping list data to local storage.
   saveToLocalStore();
+
+  // Determine the state of clear button, filter buttons container and "no item" alert.
+  updateState();
 }
 // Checks whether the input is empty.
 function checkInputEmpty(input) {
@@ -93,6 +96,9 @@ function loadItems2() {
     const li = createListItem(item);
     shoppingList.appendChild(li);
   }
+
+  // Determine the state of clear button, filter buttons container and "no item" alert.
+  updateState();
 }
 // Clears all items from the shopping list.
 function clearItems() {
@@ -195,6 +201,9 @@ function removeListItem(e) {
 
   // Saves shopping list data to local storage.
   saveToLocalStore();
+
+  // Determine the state of clear button, filter buttons container and "no item" alert.
+  updateState();
 }
 // Returns the initial shopping list items.
 function getItems() {
@@ -324,11 +333,36 @@ function saveToLocalStore() {
   // Saves the list data as a JSON string in local storage.
   localStorage.setItem("shoppingListItems", JSON.stringify(list));
 }
-
 // Clears all shopping list items from the page and removes their saved data from local storage.
 function clear() {
   // Clear all items from the shopping list in the DOM.
   clearItems();
   // Removes the "shoppingListItems" key and its saved data from local storage.
   localStorage.removeItem("shoppingListItems");
+  // Determine the state of clear button, filter buttons container and "no item" alert.
+  updateState();
+}
+// Determine the state of clear button, filter buttons container and "no item" alert.
+function updateState() {
+  // Check whether the shopping list contains at least one item.
+  const hasListItem = !(shoppingList.querySelectorAll("li").length === 0);
+
+  // Clear Button State:
+  // Show clear button when hasListItem is true.
+  // Do not show (add "d-none") clear button when hasListItem is false.
+  clearBtn.classList.toggle("d-none", !hasListItem);
+
+  // Get the container that holds the filter buttons.
+  const filterBtnsContainer = document.querySelector(".filter-buttons");
+  // Filter Buttons Container State:
+  // Show filter buttons container when hasListItem is true.
+  // Do not show (add "d-none") filter buttons container when hasListItem is false.
+  filterBtnsContainer.classList.toggle("d-none", !hasListItem);
+
+  // Get the alert message element.
+  const alert = document.querySelector(".alert");
+  // Alert State
+  // Show alert message when hasListItem is false.
+  // Do not show (add "d-none") alert message when hasListItem is true.
+  alert.classList.toggle("d-none", hasListItem);
 }
