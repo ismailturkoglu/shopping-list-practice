@@ -6,7 +6,7 @@ The application allows users to add, edit, complete, filter, delete, and clear s
 
 ## Live Demo
 
-(https://ismailturkoglu.github.io/shopping-list-practice/)
+https://ismailturkoglu.github.io/shopping-list-practice/
 
 ## Features
 
