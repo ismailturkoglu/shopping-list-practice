@@ -35,3 +35,9 @@ Each shopping list item is represented as an object:
   name: "Milk",
   completed: false
 }
+
+## Author
+
+**İsmail Türkoğlu**
+
+- GitHub: [@ismailturkoglu](https://github.com/ismailturkoglu)
